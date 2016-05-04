@@ -1,0 +1,39 @@
+---
+  - name: auto sum test playbook
+    hosts: mx
+    roles:
+     - Juniper.junos
+    vars:
+      ansible_python_interpreter: "/usr/bin/ python"
+    connection: local
+    gather_facts: no
+
+    vars_prompt:
+     - name: USERNAME
+       prompt: Username
+       private: no
+     - name: DEVICE_PASSWORD
+       prompt: Device password
+       private: yes
+
+    vars_files:
+      - "mx11_vars_test.yaml"
+
+    tasks:
+    - name: Get Junos device information
+      junos_get_facts:
+        host={{ inventory_hostname }}
+        user={{ USERNAME }}
+        passwd={{ DEVICE_PASSWORD }}
+      register: junos
+
+    - name: Print Junos facts
+      debug: msg="{{junos.facts}}"
+
+    - name: Debug template
+      debug: msg="{{item}}"
+      with_items: "{{ext_interfaces}}"
+      
+    - name: Create template
+      template: src="mx_template_test.j2" dest="/Users/benwilliams/Documents/Scripting/Ansible/testing/{{junos.facts.hostname}}.conf"
+      with_items: "{{ext_interfaces}}"

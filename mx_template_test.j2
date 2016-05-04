@@ -1,0 +1,17 @@
+{% for interface in ext_interfaces %}
+{{ interface.name }} {
+    description {{ interface.description }};
+    gigether-options {
+        802.3ad {{ interface.ae }};
+    }
+  }
+{% endfor %}
+
+{% for fab in fab_interfaces %}
+{{ fab.name }} {
+    description {{ fab.description }};
+        family inet {
+            address {{ fab.address }}
+        }
+    }
+{% endfor %}

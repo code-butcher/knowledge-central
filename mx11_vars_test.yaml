@@ -1,0 +1,30 @@
+ext_interfaces:
+  - name: ge-0/0/0
+    description: eth1 MX11-to-Qfab
+    ae: ae1
+  - name: ge-0/0/1
+    description: eth3 MX11-to-VCF
+    ae: ae2
+  - name: ge-0/0/2
+    description: eth1 MX11-to-Qfab
+    ae: ae1
+  - name: ge-0/0/3
+    description: eth1 MX11-to-VCF
+    ae: ae2
+    
+aggregate_interfaces:
+  - name: ae0
+    description: MX11-to-QFabric
+    unit: 8
+    vlan_id: 8
+    address: 130.131.9.10
+  - name: ae1
+    description: MX11-to-QFabric
+    unit: 20
+    vlan_id: 20
+    address: 130.131.21.10/30
+    
+fab_interfaces:
+  - name: ge-0/0/6
+    description: MX11 to qfx-s1
+    address: 10.10.10.1/31
